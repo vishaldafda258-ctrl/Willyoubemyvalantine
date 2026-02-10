@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Queen</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px white;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 90%;
+            width: 400px;
+        }
+
+        /* Page 1 Styling */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 10px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-yes {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        .btn-no {
+            background-color: #c9c9c9;
+            color: white;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        #sad-emoji {
+            font-size: 4rem;
+            margin-top: 20px;
+            display: none; /* Hidden by default */
+            animation: shake 0.5s;
+        }
+
+        /* Page 2 Styling */
+        #page2 {
+            display: none; /* Hidden by default */
+        }
+
+        .box-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .gift-box {
+            font-size: 4rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            user-select: none;
+        }
+
+        .gift-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .revealed {
+            font-size: 3rem; /* Adjust size for contents */
+            animation: pop 0.5s ease-out;
+        }
+
+        /* Animations */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div id="page1">
+            <h1>Will you be my Valentine?</h1>
+            <div class="btn-group">
+                <button class="btn-no" onclick="clickNo()">No</button>
+                <button class="btn-yes" onclick="goToPage2()">Yes</button>
+            </div>
+            <div id="sad-emoji">😭</div>
+        </div>
+
+        <div id="page2">
+            <h1>I have a surprise for you my queen</h1>
+            <p>Click the boxes!</p>
+            <div class="box-container">
+                <div class="gift-box" id="box1" onclick="openBox(1)">
+                    📦
+                </div>
+                <div class="gift-box" id="box2" onclick="openBox(2)">
+                    📦
+                </div>
+                <div class="gift-box" id="box3" onclick="openBox(3)">
+                    📦
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Logic for Page 1
+        function clickNo() {
+            const emoji = document.getElementById('sad-emoji');
+            emoji.style.display = 'block';
+        }
+
+        function goToPage2() {
+            document.getElementById('page1').style.display = 'none';
+            document.getElementById('page2').style.display = 'block';
+        }
+
+        // Logic for Page 2
+        function openBox(boxNumber) {
+            const box = document.getElementById('box' + boxNumber);
+            
+            // Only open if it hasn't been opened yet (checks if it shows the box emoji)
+            if (box.innerHTML.includes('📦')) {
+                box.classList.add('revealed');
+                
+                if (boxNumber === 1) {
+                    // Chocolate
+                    box.innerHTML = '🍫'; 
+                } else if (boxNumber === 2) {
+                    // Rose and Chocolate
+                    box.innerHTML = '🌹🍫';
+                } else if (boxNumber === 3) {
+                    // Ring
+                    box.innerHTML = '😍✨❤<br>💍';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
